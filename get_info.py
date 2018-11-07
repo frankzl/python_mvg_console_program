@@ -97,7 +97,7 @@ if __name__ == "__main__":
     args_group.add_argument("--recent", "-r", action="store_true", help="fetch the most recent search.")
     args_group.add_argument("--departures", "-d", help="Departures at Station/Stop")
     args_group.add_argument("--limit", "-l", help="# results to fetch")
-    args_group.add_argument("--mode", "-m", help="[List]Transportation Mode: bus, ubahn, sbahn, tram.")
+    args_group.add_argument("--mode", "-m", help="Transportation Mode: bus, ubahn, sbahn, tram.")
     args = parser.parse_args()
 
     recents_file_path = os.path.join(os.getcwd(), "recent.txt")
