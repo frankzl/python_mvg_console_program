@@ -104,7 +104,7 @@ if __name__ == "__main__":
 
     if args.recent:
         with open(recents_file_path, "r") as recent:
-            display_departures(recent.read())
+            display_departures(recent.read(), mode=args.mode)
     elif args.departures: 
         #print(args.limit)
         if args.limit:
@@ -115,5 +115,5 @@ if __name__ == "__main__":
             recent.write(args.departures)
     else:
         with open(recents_file_path, "r") as recent:
-            display_departures(recent.read())
+            display_departures(recent.read(), mode=args.mode)
 
