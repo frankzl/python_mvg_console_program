@@ -1,6 +1,6 @@
 # A console program to request the departure time from the MVG
 
-This python script is a Command Line Tool wrapper for the MVG API by [leftshift](https://github.com/leftshift/python_mvg_api). Check out his work for more info on the API.
+This python script is a Command Line wrapper for the MVG API by [leftshift](https://github.com/leftshift/python_mvg_api). Check out his work for more info on the API.
 
 ## Getting started
 
@@ -24,10 +24,13 @@ Then add an alias to your shell, for example for ZSH add the following line to y
   usage: mvg [-h] [--recent] [--departures DEPARTURES] [--limit LIMIT]
 
   arguments:
-  -h, --help            show this help message and exit
+   -h, --help            show this help message and exit
   --recent, -r          fetch the most recent search.
-  --departures DEPARTURES, -d DEPARTURES Departure Station/Stop
-  --limit LIMIT, -l LIMIT # results to fetch
+  --departures DEPARTURES, -d DEPARTURES
+                        Departures at Station/Stop
+  --limit LIMIT, -l LIMIT
+                        # results to fetch
+  --mode MODE, -m MODE  [List]Transportation Mode: bus, ubahn, sbahn, tram.
 
 </code></pre>
 

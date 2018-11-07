@@ -20,6 +20,7 @@ MVG_FG = "#ffffff"
 # 3. REGIONAL_BUS
 # 4. TRAM
 # 5. SBAHN
+# 5. NACHT_BUS
 #######
 
 
@@ -59,8 +60,14 @@ def display_title_bar():
 def display_departures(station_name, limit=10, mode=None):
     station_name = get_station_name(station_name)
     departuresJSON = get_departures_by_name(station_name)
-    departures = [ Departure(i) for i in departuresJSON ]
-    #if mode is not None:
+    departures = []
+    if mode is not None:
+        for d in departuresJSON:
+            if mode.upper() in d['product']:
+                departures += [Departure(d)]
+    else:
+        departures = [ Departure(i) for i in departuresJSON ]
+
     departures = departures[:limit]
     
     print('\nStation: '+station_name+'\n')
@@ -90,14 +97,14 @@ if __name__ == "__main__":
     args_group.add_argument("--recent", "-r", action="store_true", help="fetch the most recent search.")
     args_group.add_argument("--departures", "-d", help="Departures at Station/Stop")
     args_group.add_argument("--limit", "-l", help="# results to fetch")
-    args_group.add_argument("--mode", "-m", help="[List]Transportation Mode: bus, ubahn, sbahn, tram.", nargs='+')
+    args_group.add_argument("--mode", "-m", help="Transportation Mode: bus, ubahn, sbahn, tram.")
     args = parser.parse_args()
 
     recents_file_path = os.path.join(os.getcwd(), "recent.txt")
 
     if args.recent:
         with open(recents_file_path, "r") as recent:
-            display_departures(recent.read())
+            display_departures(recent.read(), mode=args.mode)
     elif args.departures: 
         #print(args.limit)
         if args.limit:
@@ -108,5 +115,5 @@ if __name__ == "__main__":
             recent.write(args.departures)
     else:
         with open(recents_file_path, "r") as recent:
-            display_departures(recent.read())
+            display_departures(recent.read(), mode=args.mode)
 
