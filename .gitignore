@@ -1,6 +1,9 @@
 # ignore recent.txt file
 recent.txt
 
+# ignore swap file from vim
+.swp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
