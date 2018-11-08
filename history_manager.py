@@ -1,13 +1,22 @@
 import os
 
-RECENT_FILE = "recent.txt"
-
-def get_content( read_file=RECENT_FILE ):
+def get_content(read_file):
     recents_file_path = os.path.join(os.getcwd(), read_file)
     with open(recents_file_path, "r") as recent:
-        return recent.read()
+        return toList(recent.read())
+    return []
 
-    return "lol"
+
+def toList( text ):
+    return text.split("\n")
 
 
-# content = (get_content())
+class HistoryManager:
+
+    RECENT_FILE = "recent.txt"
+
+    def get_entry( self, idx ):
+        return get_content(self.RECENT_FILE)[idx]
+    
+    def get_latest(self):
+        return self.get_entry(0)
