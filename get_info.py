@@ -1,14 +1,14 @@
 # coding=utf-8
 
 from mvg_api.mvg_api_requests import *
+from history_manager import HistoryManager
 
 from colr import color
 from texttable import Texttable
 
-import sys
 import os
 
-from pprint import  pprint
+from pprint import pprint
 
 MVG_BG = "#2a4779"
 MVG_FG = "#ffffff"
@@ -101,10 +101,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     recents_file_path = os.path.join(os.getcwd(), "recent.txt")
+    history = HistoryManager()
+    latest_departure = history.get_latest()
 
     if args.recent:
-        with open(recents_file_path, "r") as recent:
-            display_departures(recent.read(), mode=args.mode)
+        display_departures(latest_departure, mode=args.mode)
     elif args.departures: 
         #print(args.limit)
         if args.limit:
@@ -114,6 +115,5 @@ if __name__ == "__main__":
         with open(recents_file_path, "w") as recent:
             recent.write(args.departures)
     else:
-        with open(recents_file_path, "r") as recent:
-            display_departures(recent.read(), mode=args.mode)
+        display_departures(latest_departure, mode=args.mode)
 
