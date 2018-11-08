@@ -115,5 +115,11 @@ if __name__ == "__main__":
         with open(recents_file_path, "w") as recent:
             recent.write(args.departures)
     else:
+        top5 = history.get_top(5)
+
+        # spaghetti cleanup pls
+        print("Your most recent stations:")
+        print( "  ".join([ "("+str(idx)+")"+str(station) for idx, station in enumerate(top5)]) )
+        
         display_departures(latest_departure, mode=args.mode)
 
