@@ -296,6 +296,7 @@ def get_departures(station_id):
         relative_time = time - datetime.datetime.now()
         #Quick Fix for 1439 mts issue...
         if relative_time < datetime.timedelta(0):
+            #-1 for vehicles that just left.
             departure[u'departureTimeMinutes'] = -1
         else:
             departure[u'departureTimeMinutes'] = relative_time.seconds // 60
