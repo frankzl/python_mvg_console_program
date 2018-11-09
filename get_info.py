@@ -95,7 +95,7 @@ if __name__ == "__main__":
     #args_group = parser.add_mutually_exclusive_group()
     args_group = parser
     args_group.add_argument("--recent", "-r", action="store_true", help="fetch the most recent search.")
-    args_group.add_argument("--departures", "-d", help="Departures at Station/Stop")
+    args_group.add_argument("--departures", "-d", help="Departures at Station/Stop", nargs='+')
     args_group.add_argument("--limit", "-l", help="# results to fetch")
     args_group.add_argument("--mode", "-m", help="Transportation Mode: bus, ubahn, sbahn, tram.")
     args = parser.parse_args()
@@ -109,17 +109,16 @@ if __name__ == "__main__":
     elif args.departures: 
         #print(args.limit)
         if args.limit:
-            display_departures(args.departures, int(args.limit), args.mode)
+            display_departures(' '.join(args.departures), int(args.limit), args.mode)
         else:
-            display_departures(args.departures, mode=args.mode)
+            display_departures(' '.join(args.departures), mode=args.mode)
         with open(recents_file_path, "w") as recent:
-            recent.write(args.departures)
+            recent.write(' '.join(args.departures))
     else:
         top5 = history.get_top(5)
 
         # spaghetti cleanup pls
         print("Your most recent stations:")
         print( "  ".join([ "("+str(idx)+")"+str(station) for idx, station in enumerate(top5)]) )
-        
         display_departures(latest_departure, mode=args.mode)
 
