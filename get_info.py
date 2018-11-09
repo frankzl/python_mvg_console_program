@@ -85,21 +85,34 @@ def display_departures(station_name, limit=10, mode=None):
     table.add_rows(rows)
     print( color(table.draw(), fore=MVG_FG, back=MVG_BG) )
     
+def get_nearest_stations(address):
+    location = get_locations(address)
+    lat = location[0]['latitude']
+    lng = location[0]['longitude']
 
+    stations_json = get_nearby_stations(lat,lng)[:5]
+
+    #print(len(stations_json))
+
+    print('Nearest Stations to '+address+' :')
+    print(''.join([str(idx+1)+". "+station['name']+": "+', '.join(station['products'])+'\n' for idx,station in enumerate(stations_json)]))
+    return
 
 if __name__ == "__main__":
 
     import argparse
 
     parser = argparse.ArgumentParser(prog="mvg")
+    #print(parser)
     #args_group = parser.add_mutually_exclusive_group()
     args_group = parser
     args_group.add_argument("--recent", "-r", action="store_true", help="fetch the most recent search.")
     args_group.add_argument("--departures", "-d", help="Departures at Station/Stop", nargs='+')
     args_group.add_argument("--limit", "-l", help="# results to fetch")
     args_group.add_argument("--mode", "-m", help="Transportation Mode: bus, ubahn, sbahn, tram.")
-    args = parser.parse_args()
+    args_group.add_argument("--station", "-s", help="GZets stations closest to the address.", nargs='+')
 
+    args = parser.parse_args()
     recents_file_path = os.path.join(os.getcwd(), "recent.txt")
     history = HistoryManager()
     latest_departure = history.get_latest()
@@ -114,11 +127,13 @@ if __name__ == "__main__":
             display_departures(' '.join(args.departures), mode=args.mode)
         with open(recents_file_path, "w") as recent:
             recent.write(' '.join(args.departures))
+    elif args.station:
+        get_nearest_stations(' '.join(args.station))
     else:
         top5 = history.get_top(5)
 
         # spaghetti cleanup pls
         print("Your most recent stations:")
-        print( "  ".join([ "("+str(idx)+")"+str(station) for idx, station in enumerate(top5)]) )
+        print( "  ".join([str(idx+1)+". "+str(station) for idx, station in enumerate(top5)]) )
         display_departures(latest_departure, mode=args.mode)
 
