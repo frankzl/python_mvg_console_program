@@ -294,7 +294,11 @@ def get_departures(station_id):
         # Here, we convert it to datetime
         time = _convert_time(departure['departureTime'])
         relative_time = time - datetime.datetime.now()
-        departure[u'departureTimeMinutes'] = relative_time.seconds // 60
+        #Quick Fix for 1439 mts issue...
+        if relative_time < datetime.timedelta(0):
+            departure[u'departureTimeMinutes'] = -1
+        else:
+            departure[u'departureTimeMinutes'] = relative_time.seconds // 60
 
     return departures
 
