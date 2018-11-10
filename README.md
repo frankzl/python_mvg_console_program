@@ -21,17 +21,18 @@ Then add an alias to your shell, for example for ZSH add the following line to y
 
 ## Usage
 <pre><code>
-  usage: mvg [-h] [--recent] [--departures DEPARTURES] [--limit LIMIT]
+  usage: mvg [-h] [--recent] [--departures DEPARTURES] [--limit LIMIT] [--mode MODE] [--station STATION]
 
   arguments:
-   -h, --help            show this help message and exit
+  -h, --help            show this help message and exit
   --recent, -r          fetch the most recent search.
-  --departures DEPARTURES, -d DEPARTURES
+  --departures DEPARTURES , -d DEPARTURES [
                         Departures at Station/Stop
   --limit LIMIT, -l LIMIT
                         # results to fetch
-  --mode MODE, -m MODE  [List]Transportation Mode: bus, ubahn, sbahn, tram.
-
+  --mode MODE, -m MODE  Transportation Mode: bus, ubahn, sbahn, tram.
+  --station STATION , -s STATION 
+                        Gets stations closest to the address.
 </code></pre>
 
 ## Demo
