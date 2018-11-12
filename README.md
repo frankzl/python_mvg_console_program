@@ -5,7 +5,7 @@ This python script is a Command Line wrapper to get the departures from any stat
 ## Getting started
 We're on PyPi! Installing using pip.
 
-`pip install mvg_console`
+`pip install mvg-console`
 
 ## Usage
 ```
