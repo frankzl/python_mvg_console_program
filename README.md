@@ -4,7 +4,7 @@ This python script is a Command Line wrapper for the MVG API by [leftshift](http
 
 ## Getting started
 
-`git clone https://github.com/frankzl/python_mvg_console_program`
+`git clone https://github.com/aadhithya/mvg_console`
 
 If you don't have pipenv, install it with pip:
 `pip install pipenv`
@@ -20,7 +20,7 @@ Then add an alias to your shell, for example for ZSH add the following line to y
 `alias mvg="python3 $HOME/path/to/directory/python_mvg_console_program/get_info.py"`
 
 ## Usage
-<pre><code>
+```
   usage: mvg [-h] [--recent] [--departures DEPARTURES] [--limit LIMIT] [--mode MODE] [--station STATION]
 
   arguments:
@@ -33,7 +33,7 @@ Then add an alias to your shell, for example for ZSH add the following line to y
   --mode MODE, -m MODE  Transportation Mode: bus, ubahn, sbahn, tram.
   --station STATION , -s STATION 
                         Gets stations closest to the address.
-</code></pre>
+```
 
 ## Demo
 ![screenshot](demo.png)
