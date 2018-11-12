@@ -1,0 +1,3 @@
+requests==2.19.1
+Colr==0.8.1
+texttable==1.5.0
