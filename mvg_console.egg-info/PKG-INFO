@@ -1,0 +1,56 @@
+Metadata-Version: 1.2
+Name: mvg-console
+Version: 2018.11.12.1
+Summary: A Command Line Tool to get the MVG departures for a station.
+Home-page: https://github.com/frankzl/python_mvg_console_program.git
+Author: Frank Lu, Aadhithya Sankar
+License: UNKNOWN
+Description: # A console program to request the departure time from the MVG
+        
+        This python script is a Command Line wrapper for the MVG API by [leftshift](https://github.com/leftshift/python_mvg_api). Check out his work for more info on the API.
+        
+        ## Getting started
+        
+        `git clone https://github.com/frankzl/python_mvg_console_program`
+        
+        If you don't have pipenv, install it with pip:
+        `pip install pipenv`
+        
+        Open a `pipenv shell` to install the dependencies:
+        ```
+        $ pipenv shell
+        (mvg-program) $ pipenv install
+        ```
+        
+        Then add an alias to your shell, for example for ZSH add the following line to your `.zshrc`:
+        
+        `alias mvg="python3 $HOME/path/to/directory/python_mvg_console_program/get_info.py"`
+        
+        ## Usage
+        <pre><code>
+          usage: mvg [-h] [--recent] [--departures DEPARTURES] [--limit LIMIT] [--mode MODE] [--station STATION]
+        
+          arguments:
+          -h, --help            show this help message and exit
+          --recent, -r          fetch the most recent search.
+          --departures DEPARTURES , -d DEPARTURES [
+                                Departures at Station/Stop
+          --limit LIMIT, -l LIMIT
+                                # results to fetch
+          --mode MODE, -m MODE  Transportation Mode: bus, ubahn, sbahn, tram.
+          --station STATION , -s STATION 
+                                Gets stations closest to the address.
+        </code></pre>
+        
+        ## Demo
+        ![screenshot](demo.png)
+        
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6

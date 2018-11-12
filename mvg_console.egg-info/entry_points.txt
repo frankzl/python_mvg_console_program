@@ -1,0 +1,3 @@
+[console_scripts]
+mvg = mvg_console.get_info:main
+

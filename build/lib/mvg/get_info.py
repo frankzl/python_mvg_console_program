@@ -1,12 +1,13 @@
 # coding=utf-8
-from mvg_console.mvg_api.mvg_api_requests import *
-from mvg_console.history_manager import HistoryManager
+
+from mvg_api.mvg_api_requests import *
+from history_manager import HistoryManager
 
 from colr import color
 from texttable import Texttable
 
 import os
-import sys
+
 from pprint import pprint
 
 MVG_BG = "#2a4779"
@@ -19,12 +20,9 @@ MVG_FG = "#ffffff"
 # 3. REGIONAL_BUS
 # 4. TRAM
 # 5. SBAHN
-# 5. NACHT_BUSs
+# 5. NACHT_BUS
 #######
 
-__package_name__ = "mvg_console"
-__version__ = "2018.11.12.1"
-__description__ = "A Command Line Tool to get the MVG departures for a station."
 
 class Departure:
     
@@ -108,22 +106,20 @@ def main():
     #print(parser)
     #args_group = parser.add_mutually_exclusive_group()
     args_group = parser
-    args_group.add_argument("--version", "-v", help="Version Info.", action="store_true")
     args_group.add_argument("--recent", "-r", action="store_true", help="fetch the most recent search.")
     args_group.add_argument("--departures", "-d", help="Departures at Station/Stop", nargs='+')
     args_group.add_argument("--limit", "-l", help="# results to fetch")
     args_group.add_argument("--mode", "-m", help="Transportation Mode: bus, ubahn, sbahn, tram.")
-    args_group.add_argument("--search", "-s", help="Gets stations closest to the address.", nargs='+')
-
+    args_group.add_argument("--station", "-s", help="Gets stations closest to the address.", nargs='+')
 
     args = parser.parse_args()
     #print(args)
     recents_file_path = os.path.join(os.getcwd(), "recent.txt")
     history = HistoryManager(recents_file_path)
-    result, latest_departure = history.get_latest()
+
 
     if args.recent:      
-        
+        result, latest_departure = history.get_latest()
         if not result:
             print(latest_departure)
         else:
@@ -135,20 +131,14 @@ def main():
             display_departures(' '.join(args.departures), mode=args.mode)
         with open(recents_file_path, "w") as recent:
             recent.write(' '.join(args.departures))
-    elif args.search:
-        get_nearest_stations(' '.join(args.search))
-    elif args.version:
-        print(__package_name__ +' version '+__version__+'\n'+__description__)
-        sys.exit()
+    elif args.station:
+        get_nearest_stations(' '.join(args.station))
     else:
         top5 = history.get_top(5)
         # spaghetti cleanup pls
-        if result:
-            print("Your most recent stations:")
-            print( "  ".join([str(idx+1)+". "+str(station) for idx, station in enumerate(top5)]) )
-            display_departures(latest_departure, mode=args.mode)
-        else:
-            print('No recent stations.')
+        print("Your most recent stations:")
+        print( "  ".join([str(idx+1)+". "+str(station) for idx, station in enumerate(top5)]) )
+        display_departures(latest_departure, mode=args.mode)
 
      
 
