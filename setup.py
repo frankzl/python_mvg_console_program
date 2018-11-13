@@ -1,45 +1,32 @@
-"""Library for fetching departure and route data from the Munich public transport organisation MVG
+#!/usr/bin/env python3
 
-Github:
-https://github.com/leftshift/python_mvg_api
-Docs:
-http://python-mvg-departures.readthedocs.io/en/latest/
-"""
+import setuptools
+from mvg_console import __version__, __description__
 
-# Always prefer setuptools over distutils
-from setuptools import setup, find_packages
-# To use a consistent encoding
-from codecs import open
-from os import path
 
-here = path.abspath(path.dirname(__file__))
-
-# Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+# Long description
+with open("README.md", "r") as f:
     long_description = f.read()
-
-setup(
-    name='mvg_api',
-    version='1.1.2',
-    description='Library for fetching departure and route data from the Munich public transport organisation MVG',
+print(setuptools.find_packages())
+setuptools.setup(
+    name="mvg_console",
+    version=__version__,
+    description=__description__,
     long_description=long_description,
-    url='https://github.com/leftshift/python_mvg_api',
-
-    author='leftshift',
-    author_email='leftshiftlp@gmail.com',
-    license='MIT',
+    author="Frank Lu, Aadhithya Sankar",
+    url="https://github.com/frankzl/python_mvg_console_program.git",
+    packages=setuptools.find_packages(),
+    entry_points={
+        "console_scripts": ["mvg = mvg_console.get_info:main"]
+    },  
+    python_requires=">=3.6",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'License :: OSI Approved :: MIT License',
-        'Intended Audience :: Developers',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-    ],
-
-    packages=['mvg_api'],
-    install_requires=['requests'],
+        "Environment :: Console",
+        "Programming Language :: Python :: 3.6",
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: End Users/Desktop",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: Utilities",
+    ]   
 )

@@ -98,8 +98,8 @@ def get_nearest_stations(address):
     print(''.join([str(idx+1)+". "+station['name']+": "+', '.join(station['products'])+'\n' for idx,station in enumerate(stations_json)]))
     return
 
-if __name__ == "__main__":
 
+def main():
     import argparse
 
     parser = argparse.ArgumentParser(prog="mvg")
@@ -110,17 +110,21 @@ if __name__ == "__main__":
     args_group.add_argument("--departures", "-d", help="Departures at Station/Stop", nargs='+')
     args_group.add_argument("--limit", "-l", help="# results to fetch")
     args_group.add_argument("--mode", "-m", help="Transportation Mode: bus, ubahn, sbahn, tram.")
-    args_group.add_argument("--station", "-s", help="GZets stations closest to the address.", nargs='+')
+    args_group.add_argument("--station", "-s", help="Gets stations closest to the address.", nargs='+')
 
     args = parser.parse_args()
+    #print(args)
     recents_file_path = os.path.join(os.getcwd(), "recent.txt")
-    history = HistoryManager()
-    latest_departure = history.get_latest()
+    history = HistoryManager(recents_file_path)
 
-    if args.recent:
-        display_departures(latest_departure, mode=args.mode)
+
+    if args.recent:      
+        result, latest_departure = history.get_latest()
+        if not result:
+            print(latest_departure)
+        else:
+            display_departures(latest_departure, mode=args.mode)
     elif args.departures: 
-        #print(args.limit)
         if args.limit:
             display_departures(' '.join(args.departures), int(args.limit), args.mode)
         else:
@@ -131,9 +135,12 @@ if __name__ == "__main__":
         get_nearest_stations(' '.join(args.station))
     else:
         top5 = history.get_top(5)
-
         # spaghetti cleanup pls
         print("Your most recent stations:")
         print( "  ".join([str(idx+1)+". "+str(station) for idx, station in enumerate(top5)]) )
         display_departures(latest_departure, mode=args.mode)
 
+     
+
+if __name__ == "__main__":
+    main()
